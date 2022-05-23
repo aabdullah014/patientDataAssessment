@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <title>Search</title>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link " href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <strong><a class="nav-link active text-light" href="#">Search</a></strong>
+              </li>
+        </ul>   
+        <div class = "card mt-3 d-flex justify-content-center">
+            <div class="card-header d-flex justify-content-center py-3">
+                <form action="/get_data" method="POST">
+                    <label for="firstName" class = "text-secondary">Patient First Name</label>
+                    <input  class = "align-middle" type="text" name="firstName" id="firstName">
+                    <button class = "btn btn-sm align-middle btn-info">Search</button>
+                </form>
+            </div>
+            <div class="card-body mb-3 mx-4">
+                <ul class = "row d-flex list-group list-group-flush text-center list-group-horizontal">
+                {% if data=="Patient Not found" %}
+                <li class = "col-2 flex-fill list-group-item list-group-item-light">Patient Not Found</li>
+                {% else %}
+                    {% for patient in data %}
+                        {% for item in patient %}
+                        <li class = "col-2 card-header flex-fill list-group-item list-group-item-light">{{item}}</li>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
